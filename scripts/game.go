@@ -4,17 +4,21 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/vili1120/FlappyBird-Go.git/scripts/Bird"
 )
 
-type Game struct {}
+type Game struct {
+  Bird bird.Bird
+  Screen *ebiten.Image
+}
 
 func (g *Game) Update() error {
+  g.Bird.Update(g.Screen)
   return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-  ebitenutil.DebugPrint(screen, "test: Works!")
+  g.Screen = screen
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {

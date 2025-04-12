@@ -22,6 +22,8 @@ func main() {
         PosY: 120,
         Img: playerImg,
       },
+      Gravity: 0.4,
+      VelY: 0,
     },
   }
   game.Run(&g)

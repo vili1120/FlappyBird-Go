@@ -9,16 +9,15 @@ import (
 
 type Game struct {
   Bird bird.Bird
-  Screen *ebiten.Image
 }
 
 func (g *Game) Update() error {
-  g.Bird.Update(g.Screen)
+  g.Bird.Update()
   return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-  g.Screen = screen
+  g.Bird.Draw(screen)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {

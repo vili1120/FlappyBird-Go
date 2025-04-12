@@ -10,38 +10,50 @@ import (
 
 type Bird struct {
   sprite.Sprite
+  Gravity float64
+  VelY float64
   Score int
 }
 
-func (b *Bird) Flap(screen *ebiten.Image) {
+func (b *Bird) Draw(screen *ebiten.Image) {
   op := &ebiten.DrawImageOptions{}
+  rotation := b.VelY * 0.05
+  op.GeoM.Rotate(rotation)
   op.GeoM.Translate(b.PosX, b.PosY)
   screen.DrawImage(
     b.Img.SubImage(
-      image.Rect(16,0,32,16),
+      image.Rect(b.TopX,b.TopY,b.BotX,b.BotY),
     ).(*ebiten.Image),
     op,
   )
 }
 
-func (b *Bird) Idle(screen *ebiten.Image) {
-  op := &ebiten.DrawImageOptions{}
-  op.GeoM.Translate(b.PosX, b.PosY)
-  screen.DrawImage(
-    b.Img.SubImage(
-      image.Rect(0,0,16,16),
-    ).(*ebiten.Image),
-    op,
-  )
+func (b *Bird) Jump() {
+  b.VelY = -8
 }
 
-func (b *Bird) Update(screen *ebiten.Image) error {
+func (b *Bird) Flap() {
+  b.TopX = 16
+  b.TopY = 0
+  b.BotX = 32
+  b.BotY = 16
+}
+
+func (b *Bird) Fall() {
+  b.TopX = 0
+  b.TopY = 0
+  b.BotX = 16
+  b.BotY = 16
+}
+
+func (b *Bird) Update() error {
+  b.VelY += b.Gravity
+  b.PosY += b.VelY
   if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
-    b.Flap(screen)
-    b.PosY -= 5
+    b.Flap()
+    b.Jump()
   } else {
-    b.Idle(screen)
-    b.PosY += 0.1
+    b.Fall()
   }
   return nil
 }

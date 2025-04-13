@@ -19,7 +19,7 @@ func main() {
   if err != nil {
     log.Fatal(err)
   }
-  pipes := pipe.GeneratePipes(100, pipeImg)
+  pipes := pipe.GeneratePipes(1, pipeImg)
 
   g := game.Game{
     Bird: bird.Bird{

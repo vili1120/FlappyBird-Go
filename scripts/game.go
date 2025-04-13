@@ -17,9 +17,7 @@ type Game struct {
 }
 
 func (g *Game) Update() error {
-  for i := range g.Pipes {
-    g.Pipes[i].Update()
-  }
+  g.Pipes[0].Update()
   g.Bird.Update()
   return nil
 }

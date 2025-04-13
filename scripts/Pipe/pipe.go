@@ -1,8 +1,6 @@
 package pipe
 
 import (
-	"math/rand/v2"
-
 	"github.com/hajimehoshi/ebiten/v2"
 	sprite "github.com/vili1120/FlappyBird-Go.git/scripts/Sprites"
 )
@@ -14,8 +12,8 @@ func GeneratePipes(amount int, img *ebiten.Image) []Pipe {
     p := Pipe{
       Sprite: sprite.Sprite{
         Img: img,
-        PosX: 400,
-        PosY: float64(rand.IntN(32)),
+        PosX: 320,
+        PosY: 120,
       },
       VelX: 8,
     }
@@ -31,7 +29,7 @@ type Pipe struct {
 }
 
 func (p *Pipe) Update() error {
-  p.PosX += p.VelX
+  p.PosX -= p.VelX
   return nil
 }
 

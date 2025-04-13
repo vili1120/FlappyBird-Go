@@ -6,6 +6,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/vili1120/FlappyBird-Go.git/scripts"
 	bird "github.com/vili1120/FlappyBird-Go.git/scripts/Bird"
+	pipe "github.com/vili1120/FlappyBird-Go.git/scripts/Pipe"
 	sprite "github.com/vili1120/FlappyBird-Go.git/scripts/Sprites"
 )
 
@@ -14,6 +15,11 @@ func main() {
   if err != nil {
     log.Fatal(err)
   }
+  pipeImg, _, err := ebitenutil.NewImageFromFile("assets/Pipe/pipe.png")
+  if err != nil {
+    log.Fatal(err)
+  }
+  pipes := pipe.GeneratePipes(100, pipeImg)
 
   g := game.Game{
     Bird: bird.Bird{
@@ -25,6 +31,7 @@ func main() {
       Gravity: 0.4,
       VelY: 0,
     },
+    Pipes: pipes,
   }
   game.Run(&g)
 }

@@ -8,13 +8,18 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/vili1120/FlappyBird-Go.git/scripts/Bird"
+	pipe "github.com/vili1120/FlappyBird-Go.git/scripts/Pipe"
 )
 
 type Game struct {
   Bird bird.Bird
+  Pipes []pipe.Pipe
 }
 
 func (g *Game) Update() error {
+  for i := range g.Pipes {
+    g.Pipes[i].Update()
+  }
   g.Bird.Update()
   return nil
 }

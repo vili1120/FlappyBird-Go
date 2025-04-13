@@ -33,27 +33,29 @@ func (b *Bird) Jump() {
 }
 
 func (b *Bird) Flap() {
-  b.TopX = 16
+  b.TopX = 32
   b.TopY = 0
-  b.BotX = 32
-  b.BotY = 16
+  b.BotX = 64
+  b.BotY = 32
 }
 
 func (b *Bird) Fall() {
   b.TopX = 0
   b.TopY = 0
-  b.BotX = 16
-  b.BotY = 16
+  b.BotX = 32
+  b.BotY = 32
 }
 
 func (b *Bird) Update() error {
   b.VelY += b.Gravity
   b.PosY += b.VelY
-  if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+  if b.VelY < 0 {
     b.Flap()
-    b.Jump()
   } else {
     b.Fall()
+  }
+  if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+    b.Jump()
   }
   return nil
 }
